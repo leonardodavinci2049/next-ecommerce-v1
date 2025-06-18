@@ -8,7 +8,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user {
+model User {
   id        String   @id
   email     String   @unique(map: "User_email_key")
   password  String
@@ -16,4 +16,25 @@ model user {
   role      String   @default("user")
   createdAt DateTime @default(now())
   updatedAt DateTime
+}
+
+model Product {
+  id          String      @id @default(cuid())
+  name        String
+  description String?
+  price       Float
+  image       String?
+  slug        String      @unique
+  category    Category    @relation(fields: [categoryId], references: [id])
+  categoryId  String
+  inventory   Int         @default(0)
+
+  @@index([categoryId])
+}
+
+model Category {
+  id       String    @id @default(cuid())
+  name     String
+  slug     String    @unique
+  products Product[]
 }
