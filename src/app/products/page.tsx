@@ -1,8 +1,12 @@
 import React from "react";
 import ProductCard from "./components/ProductCard";
-import { mockProducts } from "@/types/mocks";
-const products = mockProducts;
-const ProductsPage = () => {
+
+import { prisma } from "@/lib/prisma";
+
+
+const ProductsPage = async () => {
+
+  const products = await prisma.product.findMany();
   return (
     <div>
       <div>Product Page</div>

@@ -1,4 +1,5 @@
-import { Product } from "@/types/mocks";
+
+import { Product } from "@/generated/prisma";
 import Image from "next/image";
 
 interface ProductCardProps {
@@ -19,7 +20,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
       {/* Container da imagem com aspect ratio fixo */}
       <div className="relative w-full h-48 mb-4 overflow-hidden rounded-lg bg-gray-100">
         <Image
-          src={product.image}
+          src={product.image ?? "/images/produto-sem-imagem.png"}
           alt={`Imagem do produto ${product.name}`}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
